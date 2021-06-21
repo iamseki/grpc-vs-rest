@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package CryptoPricingService;
+
+option go_package = "grpc/proto";
+
+service CryptoPricingService {
+    rpc GetHistoricalPrice(EmptyRequest) returns (Pricing);
+}
+
+message EmptyRequest {
+}
+
+message Pricing {
+    string symbol = 1;
+    int64 timeFrom = 2;
+    int64 timeTo = 3;
+
+    message Data {
+        int64 time = 1;
+        float high = 2;
+        float low = 3;
+        float open = 4;
+        float close = 5;
+        string conversionType = 6;
+        string conversionSymbol = 7;
+    }
+
+    repeated Data data = 4;
+}
